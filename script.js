@@ -1,17 +1,13 @@
 function createProcessTable() {
-    // Get the number of processes from the user input
     const numProcesses = document.getElementById('num_processes').value;
-
-    // Create the table element
+    
     const table = document.createElement('table');
     table.setAttribute('id', 'process_table');
 
-    // Create the table header row
     const headerRow = document.createElement('tr');
     headerRow.innerHTML = '<th>Process</th><th>Burst Time</th>';
     table.appendChild(headerRow);
 
-    // Create rows for process input
     for (let i = 0; i < numProcesses; i++) {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -21,15 +17,12 @@ function createProcessTable() {
         table.appendChild(row);
     }
 
-
-    // Add the table to the process_table div
     const processTableDiv = document.getElementById('process_table');
     processTableDiv.innerHTML = ''; // Clear existing table content
     processTableDiv.appendChild(table);
 }
   
   function calculateSJF() {
-    // Get the number of processes from the user input
     const numProcesses = document.getElementById('num_processes').value;
   
     // Get burst times from the table
@@ -40,7 +33,7 @@ function createProcessTable() {
       burstTimes.push(burstTime);
     }
   
-    // Validate input (all burst times must be positive)
+    // (all burst times must be positive)
     let allPositive = true;
     for (const burstTime of burstTimes) {
       if (burstTime <= 0) {
@@ -54,7 +47,6 @@ function createProcessTable() {
       return;
     }
   
-    // Create process data with process ID and burst time
     const processData = [];
     for (let i = 0; i < numProcesses; i++) {
       processData.push({
@@ -63,16 +55,14 @@ function createProcessTable() {
       });
     }
   
-    // Sort processes by burst time in ascending order (SJF)
+    // Sort processes by burst time
     processData.sort((a, b) => a.burstTime - b.burstTime);
   
-    // Initialize variables for scheduling
     let completedProcesses = [];
     let currentTime = 0;
     let totalWaitingTime = 0;
     let totalTurnaroundTime = 0;
   
-    // Simulate SJF scheduling
     for (const process of processData) {
       const waitingTime = currentTime;
       const completionTime = currentTime + process.burstTime;
@@ -97,12 +87,10 @@ function createProcessTable() {
         const resultsTable = document.createElement('table');
         resultsTable.setAttribute('id', 'results_table');
    
-     // Create table header row
        const headerRow = document.createElement('tr');
        headerRow.innerHTML = '<th>Process</th><th>Burst Time</th><th>Waiting Time</th><th>Completion Time</th><th>Turnaround Time</th>';
        resultsTable.appendChild(headerRow);
    
-     // Create rows for each process
      for (const process of processData) {
         const processRow = document.createElement('tr');
         processRow.innerHTML = `
@@ -121,8 +109,6 @@ function createProcessTable() {
     const averageWaitingTime = totalWaitingTime / numProcesses;
     const averageTurnaroundTime = totalTurnaroundTime / numProcesses;
 
-
-    //return results table
     const resultsTable = createResultsTable(completedProcesses);
     // Display results
     const resultElement = document.getElementById('result');
